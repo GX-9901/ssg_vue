@@ -4,39 +4,106 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .outer {
+        height: 600px;
+        width: 600px;
+        background-color: aqua;
+        /*
+        position: relative;
+        */
+    }
+
+    .center {
+        height: 400px;
+        width: 400px;
+        background-color: yellow;
+        /*        position: absolute;
+                z-index: 2;*/
+    }
+
+    .inner {
+        height: 200px;
+        width: 200px;
+        background-color: green;
+        //position: absolute;
+        //z-index: 3;
+    }
+</style>
 <body>
-    <div id="app">
-        <p>{{message}}</p>
-        <p>str :{{str}}</p>
-        <p>obj.a :{{obj.a}}</p>
-        <p>arr :{{arr[1]}}</p>
-        <p>func:{{func()}}</p>
+<div id="app">
+    <p>{{ meg }}</p>
+    <p>str :{{ str }}</p>
+    <p>obj.a :{{ obj.a }}</p>
+    <p>arr :{{ arr[1] }}</p>
+    <p>func:{{ func() }}</p>
+    <input type="text" v-bind:value="meg"/>
+    <input type="text" :value="meg">
+    <input type="text" v-model:value="str"/>
+    <button @click="addnum">打印</button>
+    <button v-on:click="addnum">打印</button>
+    <form>
+        <input type="text" v-model="meg">
+        <input type="text" v-model="str">
+        <input type="text" v-model="obj.a">
+        <input type="text" v-model="arr[1]">
+        <input type="text" v-model="func()">
+        <button @click.prevent="addnum">按按</button>
+    </form>
 
 
+    <div class="outer" @click="outerLog">
+        <div class="center" @click.stop="centerLog">
+            <div class="inner" @click.stop="innerLog">
+            </div>
+        </div>
     </div>
+    <input type="text" @keydown="keyLog" />
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
 <script>
     const vm = new Vue(
-
         {
             // el:document.getElementById("app"),
-            el:'#app',
+            el: '#app',
             data: {
-                message: 'Hello Vue!',
-                str : 'dota',
-                obj:{
-                    a:1,
-                    b:2,
+                meg: 'Hello Vue!',
+                str: 'dota',
+                obj: {
+                    a: 1,
+                    b: 2,
                 },
-                arr:[6,7,8],
-                func : ()=>{
+                arr: [6, 7, 8],
+                func: () => {
                     return false
                 },
-
+                num: 1,
             },
+            methods: {
+                addnum() {
+                    this.num += this.num;
+                    console.log(this.num);
+                },
+                outerLog() {
+                    console.log('outer');
+                },
+                centerLog() {
+                    console.log('center');
+                },
+                innerLog() {
+                    console.log('inner');
+                },
+                keyLog(e) {
+                    console.log(e.key);
+                    console.log(e.keyCode);
+                }
+            }
         }
     );
     // vm.$mount('p');
+
 </script>
+
 </body>
 </html>
