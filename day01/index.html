@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>{{ msg }}</h1>
+    <h2>{{ aaa }}</h2>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    // vue.js 暴露了一个全局变量：Vue（构造函数）
+    // 3. 创建 Vue 的实例对象：vm
+    const vm = new Vue({
+        // 数据
+        data: {
+            msg: "hello vue~",
+            aaa: "test aaa",
+        },
+    });
+
+    // 4. 渲染/挂载 vue
+    vm.$mount("#app");
+</script>
+</body>
+</html>

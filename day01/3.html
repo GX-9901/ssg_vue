@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <p>str :{{str}}</p>
+        <p>obj.a :{{obj.a}}</p>
+        <p>arr :{{arr[1]}}</p>
+        <p>func:{{func()}}</p>
+
+
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    const vm = new Vue(
+
+        {
+            // el:document.getElementById("app"),
+            el:'#app',
+            data: {
+                message: 'Hello Vue!',
+                str : 'dota',
+                obj:{
+                    a:1,
+                    b:2,
+                },
+                arr:[6,7,8],
+                func : ()=>{
+                    return false
+                },
+
+            },
+        }
+    );
+    // vm.$mount('p');
+</script>
+</body>
+</html>
