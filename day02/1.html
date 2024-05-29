@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <form>
+        <input v-model:value="lastName">
+        <input v-model:value="firstName">
+
+        <input v-model:value="fullName">
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    // vue.js 暴露了一个全局变量：Vue（构造函数）
+    // 3. 创建 Vue 的实例对象：vm
+    const vm = new Vue({
+        // 数据
+        data: {
+            firstName: "hello",
+            lastName: "test",
+        },
+        computed:{
+            fullName:{
+                get(){
+                    return this.firstName + "-" + this.lastName;
+                },
+                set(val){
+                    let [firstName, lastName] = val.split("-");
+                    this.firstName = firstName;
+                    this.lastName = lastName;
+                }
+            }
+        },
+    });
+
+    // 4. 渲染/挂载 vue
+    vm.$mount("#app");
+</script>
+</body>
+</html>
