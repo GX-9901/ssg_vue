@@ -7,8 +7,13 @@
 <body>
 <div class="app">
     <form @submit.prevent="submit">
+        <label for="firstName">姓:</label><br>
+        <input type="text" id="firstName" name="firstName" v-model="formData.firstName" required><br><br>
+        <label for="lastName">名:</label><br>
+        <input type="text" id="lastName" name="lastName" v-model="formData.lastName" required><br><br>
+
         <label for="name">姓名:</label><br>
-        <input type="text" id="name" name="name" v-model="formData.name" required><br><br>
+        <input type="text" id="name" name="name" v-model="formData.name" readonly ><br><br>
 
         <label for="email">电子邮件:</label><br>
         <input type="email" id="email" name="email" v-model="formData.email" required><br><br>
@@ -51,12 +56,22 @@
             el : '.app',
             data : {
                 formData:{
+                    firstName : "",
+                    lastName : "",
                     name : "",
                     email : "",
                     sex : "",
                     hobbies : [],
                     country : "",
                     message : "",
+                },
+            },
+            watch: {
+                'formData.firstName' : function (newVal) {
+                    this.formData.name = newVal + " " + this.formData.lastName;
+                },
+                'formData.lastName': function (newVal) {
+                    this.formData.name = this.formData.firstName + " " + newVal;
                 },
             },
             methods : {
