@@ -4,32 +4,58 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-
 <body>
+<style>
+    .pColor{
+        color: red;
+    }
+    .pFontSize{
+        font-size: 50px;
+    }
+    .pBolder{
+        font-weight: bold;
+    }
+</style>
 <div class="app">
-    <p>变大变大变大</p>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+        <li v-for="(item,index) in list">{{item}}___{{index + 1}}</li>
+        <li v-for="(item,index) in list" v-if="item%2 === 0">{{item}}</li>
+    </ul>
+    <p :style=" {color : coLor[num],fontSize :fontSize + 'px'}">变色变色变色</p>
+    <button @click="changeColor">变色</button>
+    <button @click="fontSize++">变大</button>
+    <p :class="pClass">随便变</p>
+    <button @click="pClass.pColor=pClass.pColor===false">变色</button>
+    <button @click="pClass.pFontSize=pClass.pFontSize===false">变大小</button>
+    <button @click="pClass.pBolder=pClass.pBolder===false">变粗细</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-const vm = new VUE({
-    el: '.app',
-    data: {
-        firstName: 'hello',
-        lastName: 'test',
-    },
-    computed: {
-        fullName: {
-            get() {
-                return this.firstName + ' ' + this.lastName;
+    const vm = new Vue({
+        el: ".app",
+        data: {
+            list: [1, 2, 3, 4, 5],
+            coLor: ["red", "green", "blue", "yellow", "pink", "purple", "black", "white", "gray", "orange", "brown", "cyan", "magenta", "olive"],
+            colorIndex : 0,
+            num: 0,
+            fontSize: "20",
+            pClass :{
+                pColor: true,
+                pFontSize: true,
+                pBolder : true,
             },
-            set(val) {
-                let [firstName, lastName] = val.split(' ');
-                this.firstName = firstName;
-                this.lastName = lastName;
+        },
+        methods: {
+            changeColor(){
+                this.num++;
+                if (this.num> this.coLor.length){
+                    this.num = 0;
+                }
             }
-        }
-    }
-});
+        },
+    });
+
 </script>
 </body>
 </html>

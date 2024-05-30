@@ -31,8 +31,8 @@
                 },
                 set(val){
                     let [firstName, lastName] = val.split("-");
-                    this.firstName = firstName;
-                    this.lastName = lastName;
+                    this.firstName = firstName || "";
+                    this.lastName = lastName || "";
                 }
             }
         },

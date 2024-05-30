@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="app">
+            <input
+                type="text"
+                placeholder="请输入内容来按回车键搜索"
+                v-model="searchText"
+                @keyup.enter="searchHeros"
+            />
+            <ul>
+                <li v-for="item in newHeros" :key="item.id">
+                    {{ item.name }} - level {{ item.level }}
+                </li>
+            </ul>
+            <button @click="sortHerosUp">等级升序</button>
+            <button @click="sortHerosDown">等级降序</button>
+            <button @click="initialize">初始化</button>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+            const vm = new Vue({
+                el: ".app",
+                data: {
+                    hero: [
+                        { id: 1, name: "SF", level: 18 },
+                        { id: 2, name: "PA", level: 23 },
+                        { id: 3, name: "Pudge", level: 16 },
+                        { id: 4, name: "Rubick", level: 29 },
+                        { id: 5, name: "Lina", level: 10 },
+                        { id: 6, name: "Sniper", level: 7 },
+                        { id: 7, name: "Rubick", level: 30 },
+                        { id: 8, name: "Mirana", level: 15 },
+                        { id: 9, name: "Invoker", level: 14 },
+                        { id: 10, name: "Anti-Mage", level: 16 },
+                        { id: 11, name: "Earthshaker", level: 26 },
+                        { id: 12, name: "Luna", level: 30 },
+                        { id: 13, name: "Windranger", level: 3 },
+                        { id: 14, name: "Kunkka", level: 13 },
+                        { id: 15, name: "Drow Ranger", level: 3 },
+                        { id: 16, name: "Terrorblade", level: 24 },
+                        { id: 17, name: "Earth Spirit", level: 25 },
+                        { id: 18, name: "Tinker", level: 15 },
+                        { id: 19, name: "Sven", level: 12 },
+                        { id: 20, name: "Ursa", level: 8 },
+                        { id: 21, name: "Leshrac", level: 3 },
+                        { id: 22, name: "Arc Warden", level: 28 },
+                        { id: 23, name: "Zeus", level: 20 },
+                        { id: 24, name: "Slardar", level: 25 },
+                        { id: 25, name: "Tidehunter", level: 2 },
+                        { id: 26, name: "Ogre Magi", level: 19 },
+                        { id: 27, name: "Bloodseeker", level: 14 },
+                        { id: 28, name: "Underlord", level: 29 },
+                        { id: 29, name: "Bane", level: 19 },
+                        { id: 30, name: "Necrophos", level: 20 },
+                        { id: 31, name: "Crystal Maiden", level: 17 },
+                        { id: 32, name: "Axe", level: 3 },
+                        { id: 33, name: "Shadow Fiend", level: 1 },
+                        { id: 34, name: "Vengeful Spirit", level: 1 },
+                        { id: 35, name: "Morphling", level: 21 },
+                        { id: 36, name: "Queen of Pain", level: 26 },
+                        { id: 37, name: "Riki", level: 18 },
+                        { id: 38, name: "Juggernaut", level: 30 },
+                        { id: 39, name: "Storm Spirit", level: 28 },
+                        { id: 40, name: "Razor", level: 27 },
+                        { id: 41, name: "Phantom Lancer", level: 20 },
+                        { id: 42, name: "Shadow Shaman", level: 23 },
+                    ],
+                    searchText: "",
+                    newHeros: [],
+                    sortHerosUpArr: "",
+                    sortHerosdownArr: "",
+                },
+                methods: {
+                    searchHeros() {
+                        this.newHeros = this.hero.filter((hero) =>
+                            hero.name.includes(this.searchText)
+                        );
+                    },
+                    initialize() {
+                        this.newHeros = this.deepClone(this.hero);
+                    },
+                    getType(o) {
+                        return Object.prototype.toString
+                            .call(o)
+                            .slice(8, -1)
+                            .toLowerCase();
+                    },
+                    deepClone(o) {
+                        let newobj = null;
+                        if (this.getType(o) !== "array" && this.getType(o) !== "object") {
+                            return o;
+                        }
+                        if (this.getType(o) === "array") {
+                            newobj = [];
+                        }
+                        if (this.getType(o) === "object") {
+                            newobj = {};
+                        }
+                        for (let key in o) {
+                            if (o.hasOwnProperty(key)) {
+                                newobj[key] = this.deepClone(o[key]);
+                            }
+                        }
+
+                        return newobj;
+                    },
+                    sortHerosUp() {
+                        this.sortHerosUpArr = this.deepClone(this.newHeros);
+                        this.sortHerosUpArr.sort((a, b) => a.level - b.level);
+                        this.newHeros = this.sortHerosUpArr;
+                    },
+                    sortHerosDown() {
+                        this.sortHerosUpArr = this.deepClone(this.newHeros);
+                        this.sortHerosUpArr.sort((a, b) => b.level - a.level);
+                        this.newHeros = this.sortHerosUpArr;
+                    },
+                },
+                mounted() {
+                    this.initialize();
+                },
+            });
+        </script>
+    </body>
+</html>

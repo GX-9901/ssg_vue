@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="app">
+    <form @submit.prevent="submit">
+        <label for="name">姓名:</label><br>
+        <input type="text" id="name" name="name" v-model="formData.name" required><br><br>
+
+        <label for="email">电子邮件:</label><br>
+        <input type="email" id="email" name="email" v-model="formData.email" required><br><br>
+
+        <label>性别:</label><br>
+        <input type="radio" id="male" name="gender" value="1" v-model="formData.sex" required>
+        <label for="male">男</label><br>
+        <input type="radio" id="female" name="gender" value="0" v-model="formData.sex" >
+        <label for="female">女</label><br><br>
+
+        <label for="hobbies">爱好（多选）:</label><br>
+        <input type="checkbox" id="sports" name="hobbies" value="sports" v-model="formData.hobbies">
+        <label for="sports">运动</label><br>
+        <input type="checkbox" id="reading" name="hobbies" value="reading" v-model="formData.hobbies">
+        <label for="reading">阅读</label><br>
+        <input type="checkbox" id="traveling" name="hobbies" value="traveling" v-model="formData.hobbies">
+        <label for="traveling">旅游</label><br><br>
+
+        <label for="country">国家:</label><br>
+        <select id="country" name="country" v-model="formData.country">
+            <option value="">请选择一个国家</option>
+            <option value="china">中国</option>
+            <option value="usa">美国</option>
+            <option value="uk">英国</option>
+            <option value="france">法国</option>
+            <option value="germany">德国</option>
+        </select><br><br>
+
+        <label for="message">留言:</label><br>
+        <textarea id="message" name="message" v-model="formData.message" rows="4" cols="50" placeholder="在这里写下你的留言..."></textarea><br><br>
+
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    const vm = new Vue(
+        {
+            el : '.app',
+            data : {
+                formData:{
+                    name : "",
+                    email : "",
+                    sex : "",
+                    hobbies : [],
+                    country : "",
+                    message : "",
+                },
+            },
+            methods : {
+                submit(){
+                    console.log(this.formData);
+                }
+            }
+        }
+    );
+</script>
+</body>
+</html>
