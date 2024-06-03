@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <span v-lower-case="text"></span>
+    <span v-lower-case="msg"></span>
+
+    <span v-upper-case="text"></span>
+    <span v-upper-case="msg"></span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    // 全局指令
+    Vue.directive("upper-case", (el, binding) => {
+        el.textContent = binding.value.toUpperCase();
+    });
+
+    const vm = new Vue({
+        data: {
+            text: "Hello Vue",
+            msg: "Hello World",
+        },
+        // 局部指令(基本不用)
+        directives: {
+            "lower-case"(el, binding) {
+                /*
+                  el 绑定指令属性的DOM元素
+                  binding 指令信息
+                    expression 表达式
+                    value 表达式的值
+                    name 指令名称
+                    rawName 指令完整名称
+                */
+                // console.log(el, binding);
+                el.textContent = binding.value.toLowerCase();
+            },
+        },
+    });
+    vm.$mount("#app");
+</script>
+</body>
+</html>

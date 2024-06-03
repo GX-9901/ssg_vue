@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <p @click="num++">{{num}}</p>
+    <!-- 模板只能使用Vue中数据 -->
+    <button @click="$destroy()">go die</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    /*
+      mounted 初始化渲染完成之后触发
+        发送请求、设置定时器、绑定事件等异步任务
+          1. mounted可以直接操作DOM
+          2. mounted执行任务，不会阻塞渲染（让渲染速度更快）
+      beforeDestroy 再销毁之前触发
+        清除定时器，解绑事件等收尾工作 -> 防止内存泄漏
+    */
+    const vm = new Vue({
+        data: {
+            num: 0,
+        },
+        // 初始化渲染阶段 -> 第一次渲染触发
+        beforeCreate() {
+            console.log("beforeCreate()");
+        },
+        created() {
+            console.log("created()");
+        },
+        beforeMount() {
+            console.log("beforeMount()");
+        },
+        mounted() {
+            console.log("mounted()");
+        },
+        // 更新阶段 -> 当你修改data数据时触发
+        beforeUpdate() {
+            console.log("beforeUpdate()");
+        },
+        updated() {
+            console.log("updated()");
+        },
+        // 卸载阶段 -> 手动销毁 vm.$destroy()
+        beforeDestroy() {
+            console.log("beforeDestroy()");
+        },
+        destroyed() {
+            console.log("destroyed()");
+        },
+    });
+    vm.$mount("#app");
+    console.log(vm)
+</script>
+</body>
+</html>
+</body>
+</html>
