@@ -23,7 +23,7 @@ export default {
     deleteSelectItems(){
       if (window.confirm(`您确定要删除吗?`)) {
         this.deleteSelectItem();
-        // console.log(this.todos)
+        console.log(this.todos)
         this.$nextTick(() => {  // 确保DOM更新完成
           if(this.todos.length === 0){
             this.$refs.selectAllBtn.checked = false;

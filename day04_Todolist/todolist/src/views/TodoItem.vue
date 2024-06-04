@@ -24,8 +24,8 @@ export default {
   },
   methods:{
     updateClick(){
-      console.log(this.dataId);
-      console.log(this.select);
+      // console.log(this.dataId);
+      // console.log(this.select);
       this.updateSelect(this.dataId,this.select);
     },
     deleteClick(){
