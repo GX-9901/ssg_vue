@@ -4,14 +4,27 @@ import TodoItem from "@/views/TodoItem.vue";
 
 export default {
   name: "TodoList",
+  props:{
+      todos:{
+        type : Array,
+        require : true,
+    },
+    updateSelect: {
+      type : Function,
+      require: true,
+    },
+    deleteItem :{
+      type : Function,
+      require: true,
+    },
+  },
   components: {TodoItem}
 }
 </script>
 
 <template>
   <ul class="todo-main">
-    <TodoItem />
-    <todo-item v-for="todo in todos",key="todo.id",:todd="todo" />
+    <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" :updateSelect="updateSelect" :deleteItem="deleteItem"/>
   </ul>
 </template>
 

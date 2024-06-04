@@ -1,16 +1,57 @@
 <script>
 export default {
-  name: "TodoItem"
+  name: "TodoItem",
+  data(){
+    return {
+      select : this.todo.isDone,
+      dataId:this.todo.id,
+      isShow: false,
+    }
+  },
+  props:{
+    todo: {
+      type: Object,
+      require :true,
+    },
+    updateSelect: {
+      type: Function,
+      require: true,
+    },
+    deleteItem:{
+      type:Function,
+      require:true,
+    }
+  },
+  methods:{
+    updateClick(){
+      console.log(this.dataId);
+      console.log(this.select);
+      this.updateSelect(this.dataId,this.select);
+    },
+    deleteClick(){
+      if (window.confirm(`您确定要删除吗?`)) {
+        this.deleteItem(this.dataId);
+      }
+    },
+  },
+  watch:{
+      todo:{
+        handler(){
+          this.select = this.todo.isDone;
+        },
+        deep:true,
+      }
+  }
 }
 </script>
 
 <template>
-  <li>
+  <li @mouseenter="isShow=true" @mouseleave="isShow = false">
     <label>
-      <input type="checkbox"/>
-      <span></span>
+      <input type="checkbox" v-model="select"  @change="updateClick" />
+      <span>{{todo.name}}</span>
     </label>
-    <button class="btn btn-danger" style="display:none">删除</button>
+    <button class="btn btn-danger" v-show="isShow" @click="deleteClick">删除</button>
   </li>
 </template>
 
@@ -37,7 +78,6 @@ li label li input {
 
 li button {
   float: right;
-  display: none;
   margin-top: 3px;
 }
 

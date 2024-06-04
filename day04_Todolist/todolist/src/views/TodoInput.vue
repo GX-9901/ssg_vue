@@ -1,12 +1,33 @@
 <script>
 export default {
-  name: "TodoInput"
+  name: "TodoInput",
+  data() {
+      return{
+        name:"",
+      }
+  },
+  props:{
+    addTodo:{
+      type:Function,
+      require:true
+    }
+  },
+  methods: {
+    addTodoKey(){
+      if(!this.name){
+        // console.log(this.name)
+        return;
+      }
+      this.addTodo(this.name);
+      this.name = "";
+    },
+  },
 }
 </script>
 
 <template>
-  <div class="todo-header">
-    <input type="text" placeholder="请输入你的任务名称，按回车键确认"/>
+  <div class="todo-header" >
+    <input type="text" placeholder="请输入你的任务名称，按回车键确认" v-model.trim="name" @keyup.enter="addTodoKey"/>
   </div>
 </template>
 
