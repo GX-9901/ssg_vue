@@ -1,32 +1,28 @@
 <script>
+import {mapMutations} from "vuex";
+
 export default {
   name: "TodoItem",
   data(){
     return {
       select : this.todo.isDone,
-      dataId:this.todo.id,
-      isShow: false,
+      dataId : this.todo.id,
+      isShow : false,
     }
   },
   props:{
     todo: {
-      type: Object,
-      require :true,
+      type : Object,
+      required :true,
     },
-    updateSelect: {
-      type: Function,
-      require: true,
-    },
-    deleteItem:{
-      type:Function,
-      require:true,
-    }
   },
   methods:{
+    ...mapMutations("todos", ["updateSelect","deleteItem"]),
     updateClick(){
       // console.log(this.dataId);
       // console.log(this.select);
-      this.updateSelect(this.dataId,this.select);
+      console.log(this.select)
+      this.updateSelect({ id: this.dataId, isDone: this.select });
     },
     deleteClick(){
       if (window.confirm(`您确定要删除吗?`)) {
@@ -34,15 +30,14 @@ export default {
       }
     },
   },
-  // watch:{
-  //     todo:{
-  //       handler(){
-  //         this.select = this.todo.isDone;
-  //       },
-  //       deep:true,
-  //     }
-  // },
-
+  watch:{
+      todo:{
+        handler(){
+          this.select = this.todo.isDone;
+        },
+        deep:true,
+      }
+  }
 }
 </script>
 
